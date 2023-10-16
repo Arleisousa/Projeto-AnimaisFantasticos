@@ -1,21 +1,81 @@
-const tabMenu = document.querySelectorAll('.js-tabmenu li')
-const tabContent = document.querySelectorAll('.js-tabcontent section')
+// add navegação
 
-if(tabMenu.length && tabContent.length ) { 
+function iniciarNav() { 
+const tabMenu = document.querySelectorAll('.js-tabmenu li') //selecionando os animais
+const tabContent = document.querySelectorAll('.js-tabcontent section') //selecionando os conteudo
 
-    tabContent[0].classList.add('ativo')
+if(tabMenu.length && tabContent.length ) { //verificando se os itens existem para fazer o script
 
-    function activeTab (index) {
+    tabContent[0].classList.add('ativo') //colocando a class ativo para a pag ja começar com conteudo
+
+    function activeTab (index) { 
         tabContent.forEach((section) => {
-          section.classList.remove('ativo')
-        })
-        tabContent[index].classList.add('ativo')
+          section.classList.remove('ativo') //removendo a class ativo caso tente clicar em mais de 1 item
+        })   
+        tabContent[index].classList.add('ativo')  //fazendo uma function para pegar o index do conteudo e add classe ativo 
     }
 
     tabMenu.forEach((itemMenu, index) => {
         itemMenu.addEventListener('click', () => {
           activeTab(index)
-        })
+        }) //adicionando evento click para pegar o index do menu 
     })
+  }
+}
 
+iniciarNav()
+
+
+//add abrir perguntas
+
+function initAccordion() { //apenas envolvendo em uma function
+const accordionList = document.querySelectorAll('.js-accordion dt')
+
+if(accordionList.length) {
+accordionList[0].classList.add('ativo')
+accordionList[0].nextElementSibling.classList.add('ativo')
+
+
+function activeAccordion() {
+  this.classList.toggle('ativo')
+  this.nextElementSibling.classList.toggle('ativo')
+}
+
+accordionList.forEach((item) => {
+  item.addEventListener('click', activeAccordion)
+})
+}
+}
+
+initAccordion()
+
+//Scroll suave
+
+function scrollSuave() {
+      const linkInternos = document.querySelectorAll('.js-menu a[href^="#"]')
+
+      function scrollLink(event) {
+        event.preventDefault()
+        const href = event.currentTarget.getAttribute('href')
+        const section = document.querySelector(href)
+
+        section.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+
+        /*
+        FORMA ALTERNATIVA
+
+        const topo = section.offsetTop;
+        window.scrollTo({
+          top: topo,
+          behavior: 'smooth', 
+        })
+        */
+      }
+
+      linkInternos.forEach((link) => {
+        link.addEventListener('click', scrollLink )
+      })
 }
