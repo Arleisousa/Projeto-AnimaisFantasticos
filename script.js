@@ -43,7 +43,8 @@ function activeAccordion() {
 
 accordionList.forEach((item) => {
   item.addEventListener('click', activeAccordion)
-})
+}
+)
 }
 }
 
@@ -79,3 +80,30 @@ function scrollSuave() {
         link.addEventListener('click', scrollLink )
       })
 }
+
+//animação scroll
+
+
+function initAnimacaoScroll() {
+const sections = document.querySelectorAll('.js-scroll')
+
+if(sections.length) {
+      const windowMetade = window.innerHeight * 0.6
+
+      function animaScroll() {
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top
+          const sectionVisible = (sectionTop - windowMetade) < 0
+
+          if(sectionVisible) {
+            section.classList.add('ativo')
+          }
+        } ) 
+      }
+
+      animaScroll()
+      window.addEventListener('scroll', animaScroll)
+}
+}
+
+initAnimacaoScroll()
